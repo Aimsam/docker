@@ -1,4 +1,4 @@
-automated build at [docker hub](https://hub.docker.com/r/aimsam/ubuntu/)
+automated build base ubuntu at [docker hub](https://hub.docker.com/r/aimsam/ubuntu/)
 
 ## feature
 
