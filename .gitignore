@@ -1,0 +1,6 @@
+mount/var/log/*
+mount/var/log/nginx/*
+mount/etc/nginx/sites-available/*
+mount/etc/nginx/sites-enable/*
+!mount/etc/nginx/sites-enable/default
+!mount/etc/nginx/sites-available/default

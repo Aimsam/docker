@@ -1,0 +1,49 @@
+mysql:
+    restart: always
+    image:  mysql
+    name: mysql
+    ports:
+        - '3306:3306'
+    expose:
+        - '3306'
+    volumes:
+        - /mnt/sda1/volumes/mysql:/var/lib/mysql
+    environment:
+        - MYSQL_ROOT_PASSWORD=123456
+php:
+    restart: always
+    image: aimsam/php-fpm
+    name: php
+    ports:
+        - '9000:9000'
+    expose:
+        - '9000'
+    volumes:
+        - $PWD/mount/var/log:/var/log
+        - ~/Projects:/var/htdocs
+        - $PWD/mount/usr/local/bin:/usr/local/bin
+        - $PWD/mount/.composer:/root/.composer
+postgres:
+    restart: always
+    image: postgres
+    name: postgres
+    ports:
+        - '5432:5432'
+    volumes:
+        - /mnt/sda1/volumes/postgresql:/var/lib/postgresql/data
+    environment:
+        - POSTGRES_PASSWORD=123456
+nginx:
+    restart: always
+    image: aimsam/nginx
+    name: nginx 
+    ports:
+        - '80:80'
+        - '433:433'
+    volumes:
+        - ~/Projects:/var/htdocs
+        - $PWD/mount/etc/nginx/conf.d:/etc/nginx/conf.d
+        - $PWD/mount/etc/nginx/includes:/etc/nginx/includes
+        - $PWD/mount/etc/nginx/sites-available:/etc/nginx/sites-available
+        - $PWD/mount/etc/nginx/sites-enabled:/etc/nginx/sites-enabled
+        - $PWD/mount/var/log/nginx:/var/log/nginx
