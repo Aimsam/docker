@@ -1,6 +1,6 @@
 server {
     server_name wechat-cms.local;
-    root /Projects/PHP/WechatCMS/public;
+    root /var/htdocs/PHP/WechatCMS/public;
     error_log /var/log/nginx/weichat-cms.log;
 
     index index.html index.php;

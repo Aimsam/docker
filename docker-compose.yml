@@ -1,7 +1,7 @@
 mysql:
     restart: always
     image:  mysql
-    name: mysql
+    container_name: mysql
     ports:
         - '3306:3306'
     expose:
@@ -13,7 +13,7 @@ mysql:
 php:
     restart: always
     image: aimsam/php-fpm
-    name: php
+    container_name: php
     ports:
         - '9000:9000'
     expose:
@@ -26,7 +26,7 @@ php:
 postgres:
     restart: always
     image: postgres
-    name: postgres
+    container_name: postgres
     ports:
         - '5432:5432'
     volumes:
@@ -36,7 +36,7 @@ postgres:
 nginx:
     restart: always
     image: aimsam/nginx
-    name: nginx 
+    container_name: nginx 
     ports:
         - '80:80'
         - '433:433'
