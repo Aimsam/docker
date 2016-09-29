@@ -4,39 +4,48 @@ mysql:
     container_name: mysql
     ports:
         - '3306:3306'
-    expose:
-        - '3306'
     volumes:
-        - /mnt/sda1/volumes/mysql:/var/lib/mysql
+        - $PWD/mount/data/mysql:/var/lib/mysql
     environment:
-        - MYSQL_ROOT_PASSWORD=123456
+        MYSQL_ROOT_PASSWORD: 123456
+        TZ: Asia/Chongqing
+
+redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+        - "6379:6379"
+    volumes:
+        - $PWD/data/redis:/data
+        - ./etc/redis/redis.conf:/etc/redis.conf
+    command: ["redis-server", "/etc/redis.conf"]
+    environment:
+        TZ: Asia/Chongqing
+    restart: always
+
 php:
     restart: always
-    image: aimsam/php-fpm
+    image: aimsam/php7
     container_name: php
+    links:
+        - mysql
+        - redis
     ports:
         - '9000:9000'
-    expose:
-        - '9000'
     volumes:
         - $PWD/mount/var/log:/var/log
         - ~/Projects:/var/htdocs
-        - $PWD/mount/usr/local/bin:/usr/local/bin
-        - $PWD/mount/.composer:/root/.composer
-postgres:
-    restart: always
-    image: postgres
-    container_name: postgres
-    ports:
-        - '5432:5432'
-    volumes:
-        - /mnt/sda1/volumes/postgresql:/var/lib/postgresql/data
+        - $PWD/images/php/7/local:/home/work/local
     environment:
-        - POSTGRES_PASSWORD=123456
+        TZ: Asia/Chongqing
+        REDIS_PORT: 6379
+
 nginx:
     restart: always
-    image: aimsam/nginx
-    container_name: nginx 
+    image: nginx:alpine
+    container_name: nginx
+    links:
+        - php
     ports:
         - '80:80'
         - '433:433'

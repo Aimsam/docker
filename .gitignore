@@ -1,6 +1,9 @@
+.composer/cache/*
+mount/data/mysql/*
+mount/var/log/*
 mount/var/log/*
 mount/var/log/nginx/*
-mount/etc/nginx/sites-available/*
-mount/etc/nginx/sites-enable/*
-!mount/etc/nginx/sites-enable/default
-!mount/etc/nginx/sites-available/default
+mount/var/log/mysql/*
+images/php/7/local/*
+!.gitkeep
+docker-compose.yml
