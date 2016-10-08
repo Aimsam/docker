@@ -16,7 +16,7 @@ redis:
     ports:
         - "6379:6379"
     volumes:
-        - $PWD/data/redis:/data
+        - $PWD/mount/data/redis:/data
         - $PWD/mount/etc/redis/redis.conf:/etc/redis.conf
     command: ["redis-server", "/etc/redis.conf"]
     environment:
@@ -36,6 +36,7 @@ php:
         - $PWD/mount/var/log:/var/log
         - $PWD/mount/var:/home/work/var
         - ~/Projects:/var/htdocs
+        - ~/.ssh:/root/ssh-outside
         - $PWD/images/php/7/local:/home/work/local
     environment:
         TZ: Asia/Chongqing

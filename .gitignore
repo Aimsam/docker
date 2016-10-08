@@ -1,5 +1,6 @@
 .composer/cache/*
 mount/data/mysql/*
+mount/data/redis/*
 mount/redis/mysql/*
 mount/var/run/*
 mount/var/log/*.log
