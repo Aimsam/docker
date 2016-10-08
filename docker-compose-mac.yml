@@ -17,7 +17,7 @@ redis:
         - "6379:6379"
     volumes:
         - $PWD/data/redis:/data
-        - ./etc/redis/redis.conf:/etc/redis.conf
+        - $PWD/mount/etc/redis/redis.conf:/etc/redis.conf
     command: ["redis-server", "/etc/redis.conf"]
     environment:
         TZ: Asia/Chongqing
@@ -34,6 +34,7 @@ php:
         - '9000:9000'
     volumes:
         - $PWD/mount/var/log:/var/log
+        - $PWD/mount/var:/home/work/var
         - ~/Projects:/var/htdocs
         - $PWD/images/php/7/local:/home/work/local
     environment:
@@ -53,6 +54,5 @@ nginx:
         - ~/Projects:/var/htdocs
         - $PWD/mount/etc/nginx/conf.d:/etc/nginx/conf.d
         - $PWD/mount/etc/nginx/includes:/etc/nginx/includes
-        - $PWD/mount/etc/nginx/sites-available:/etc/nginx/sites-available
-        - $PWD/mount/etc/nginx/sites-enabled:/etc/nginx/sites-enabled
+        - $PWD/mount/etc/nginx/sites:/etc/nginx/sites
         - $PWD/mount/var/log/nginx:/var/log/nginx

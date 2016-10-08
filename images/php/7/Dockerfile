@@ -1,8 +1,8 @@
 # VERSION 0.0.1
-FROM aimsam/ubuntu
+FROM ubuntu:14.04
 MAINTAINER aimsam<1thblood@gmail.com>
 
-#VOLUME $PWD/local/:/home/work/local
+VOLUME $PWD/local/:/home/work/local
 # phpunit & composer
 ADD https://phar.phpunit.de/phpunit.phar /usr/local/bin/phpunit
 ADD https://getcomposer.org/composer.phar /usr/local/bin/composer
