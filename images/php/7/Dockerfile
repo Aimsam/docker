@@ -15,6 +15,18 @@ chown -R www-data:www-data /var/htdocs
 WORKDIR /var/htdocs
 ENTRYPOINT ["/entrypoint.sh"]
 
+RUN echo "deb http://mirrors.163.com/ubuntu/ xenial main restricted universe multiverse\n\
+		deb http://mirrors.163.com/ubuntu/ xenial-security main restricted universe multiverse\n\
+		deb http://mirrors.163.com/ubuntu/ xenial-updates main restricted universe multiverse\n\
+		deb http://mirrors.163.com/ubuntu/ xenial-proposed main restricted universe multiverse\n\
+		deb http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe multiverse\n\
+		deb-src http://mirrors.163.com/ubuntu/ xenial main restricted universe multiverse\n\
+		deb-src http://mirrors.163.com/ubuntu/ xenial-security main restricted universe multiverse\n\
+		deb-src http://mirrors.163.com/ubuntu/ xenial-updates main restricted universe multiverse\n\
+		deb-src http://mirrors.163.com/ubuntu/ xenial-proposed main restricted universe multiverse\n\
+		deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe multiverse" > /etc/apt/sources.list
+
+RUN apt-get update && apt-get upgrade -y && apt-get install -y apt-utils zsh wget git curl && wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh && chsh -s /bin/zsh
 
 EXPOSE 9000
 

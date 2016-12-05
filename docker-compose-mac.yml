@@ -30,6 +30,9 @@ php:
     links:
         - mysql
         - redis
+    dns:
+        - 114.114.114.114
+        - 114.114.115.115
     ports:
         - '9000:9000'
     volumes:
