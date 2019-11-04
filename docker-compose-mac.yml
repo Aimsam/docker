@@ -2,6 +2,7 @@ mysql:
     restart: always
     image:  mysql
     container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
     ports:
         - '3306:3306'
     volumes:
@@ -23,40 +24,61 @@ redis:
         TZ: Asia/Chongqing
     restart: always
 
-php:
+adminer:
+    image: adminer
     restart: always
-    image: aimsam/php7
-    container_name: php
     links:
         - mysql
-        - redis
-    dns:
-        - 114.114.114.114
-        - 114.114.115.115
     ports:
-        - '9000:9000'
-    volumes:
-        - $PWD/mount/var/log:/var/log
-        - $PWD/mount/var:/home/work/var
-        - ~/Projects:/var/htdocs
-        - ~/.ssh:/root/ssh-outside
-        - $PWD/images/php/7/local:/home/work/local
-    environment:
-        TZ: Asia/Chongqing
-        REDIS_PORT: 6379
+        - 8080:8080
+
+php72:
+   restart: always
+   image: php:chen
+   container_name: php72
+   links:
+       - mysql
+       - redis
+   ports:
+       - '9001:9000'
+   volumes:
+       - $PWD/mount/var/log:/var/log
+       - $PWD/mount/var:/home/work/var
+       - ~/Projects:/var/htdocs
+       - ~/.ssh:/root/ssh-outside
+       - ./localtime:/etc/localtime:ro
+   environment:
+       TZ: Asia/Chongqing
+       REDIS_PORT: 6379
 
 nginx:
     restart: always
     image: nginx:alpine
     container_name: nginx
     links:
-        - php
+        - php72
     ports:
         - '80:80'
         - '433:433'
     volumes:
+        - $PWD/script:/var/scrpit
         - ~/Projects:/var/htdocs
         - $PWD/mount/etc/nginx/conf.d:/etc/nginx/conf.d
         - $PWD/mount/etc/nginx/includes:/etc/nginx/includes
-        - $PWD/mount/etc/nginx/sites:/etc/nginx/sites
-        - $PWD/mount/var/log/nginx:/var/log/nginx
+        - $PWD/mount/etc/nginx/sites:/etc/nginx/sites 
+#mongo:
+#    restart: always
+#    image: mongo
+#    container_name: mongo
+#    links:
+#        - php
+#    ports:
+#        - '27017:27017'
+#    volumes:
+#        - /Users/aimsam/Projects/docker/data/db:/data/configdb
+#es:
+#    restart: always
+#    image: itzg/elasticsearch 
+#    container_name: es
+#    ports:
+#        - '9200:9200'

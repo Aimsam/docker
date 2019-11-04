@@ -3,6 +3,7 @@ mount/data/mysql/*
 mount/data/redis/*
 mount/redis/mysql/*
 mount/var/run/*
+mount/etc/nginx/*
 mount/var/log/*.log
 mount/var/log/apt/*
 mount/var/log/nginx/*
